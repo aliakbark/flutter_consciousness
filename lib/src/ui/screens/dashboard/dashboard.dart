@@ -22,13 +22,13 @@ class _MyCollectionsState extends State<MyCollections> {
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  ImageIcon(
-                    AssetImage(
-                      "assets/icons/home_outline.png",
-                    ),
-                    size: 24.0,
-                    color: Theme.of(context).primaryColor,
-                  ),
+//                  ImageIcon(
+//                    AssetImage(
+//                      "assets/icons/home_outline.png",
+//                    ),
+//                    size: 24.0,
+//                    color: Theme.of(context).primaryColor,
+//                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
@@ -47,24 +47,7 @@ class _MyCollectionsState extends State<MyCollections> {
               elevation: 0.0,
               pinned: false,
               forceElevated: true,
-              actions: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "Surat",
-                      style: Theme.of(context).textTheme.body1,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.location_on,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
+              actions: <Widget>[],
             ),
           ];
         },
@@ -84,4 +67,3 @@ class _MyCollectionsState extends State<MyCollections> {
     ));
   }
 }
-
