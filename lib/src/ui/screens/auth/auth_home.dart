@@ -16,7 +16,7 @@ class AuthHome extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/auth_home_bg1.jpg'),
+                  image: AssetImage('assets/images/firstImage.jpg'),
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -47,7 +47,7 @@ class AuthHome extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 24.0, horizontal: 16.0),
                         child: new Text(
-                          "Short description of Drive will be displayed here...",
+                          "Creating a superior consciousness within a community...",
                           style: Theme.of(context)
                               .textTheme
                               .title

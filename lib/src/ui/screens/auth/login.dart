@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final _emailController = new TextEditingController();
   final _passwordController = new TextEditingController();
   final _nameController = new TextEditingController();
+  bool _isLoading = false;
 
   final authBloc = AuthBloc();
   bool _obscureText = true;
@@ -177,7 +178,7 @@ class _LoginState extends State<Login> {
                                               });
                                             }
                                           : null,
-                                      child: Text(
+                                      child: !_isLoading?Text(
                                         "Continue",
                                         style: Theme.of(context)
                                             .textTheme
@@ -187,7 +188,7 @@ class _LoginState extends State<Login> {
                                                   ? Colors.white
                                                   : Colors.black26,
                                             ),
-                                      ),
+                                      ):Center(child: CircularProgressIndicator(backgroundColor: Theme.of(context).scaffoldBackgroundColor),),
                                     ),
                                   );
                                 }),
