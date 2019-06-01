@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "144173298626",
+    "firebase_url": "https://flutterconsciousness.firebaseio.com",
+    "project_id": "flutterconsciousness",
+    "storage_bucket": "flutterconsciousness.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144173298626:android:071aa61105095222",
+        "android_client_info": {
+          "package_name": "com.untanglestrategy.flutter_consciousness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144173298626-odig165tp9eoeadn8d6fhfmpeiq8r1h5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX4MzXjEenFYfTXy4picLwHL9OlD_4ZOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144173298626-odig165tp9eoeadn8d6fhfmpeiq8r1h5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,6 +14,11 @@ class _LoginState extends State<Login> {
   Country _selectedDialogCountry = CountryPickerUtils.getCountryByIsoCode('in');
 
   final _phoneNumberController = new TextEditingController();
+  final _emailController = new TextEditingController();
+  final _passwordController = new TextEditingController();
+  final _nameController = new TextEditingController();
+
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -55,6 +60,23 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
+                        StreamBuilder<String>(
+                          stream: authBloc.name,
+                          builder: (context, snapshot) => TextField(
+                                controller: _nameController,
+                                onChanged: (value) =>
+                                    authBloc.nameChanged.add(value),
+                                decoration: InputDecoration(
+                                  labelText: "Your name",
+                                  helperText: "Please enter your name.",
+                                  errorText: snapshot.error,
+                                ),
+                                keyboardType: TextInputType.text,
+                              ),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,45 +107,44 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 16.0,
                         ),
-//                        StreamBuilder<String>(
-//                          stream: authBloc.email,
-//                          builder: (context, snapshot) => TextField(
-//                            controller: _usernameController,
-//                            onChanged: (value) =>
-//                                authBloc.emailChanged.add(value),
-//                            decoration: InputDecoration(
-//                              labelText: "Email",
-//                              helperText:
-//                              "Please enter your registered email id.",
-//                              errorText: snapshot.error,
-//                            ),
-//                            keyboardType: TextInputType.emailAddress,
-//                          ),
-//                        ),
-//                        SizedBox(
-//                          height: 16.0,
-//                        ),
-//                        StreamBuilder(
-//                            stream: authBloc.password,
-//                            builder: (context, snapshot) => TextField(
-//                              controller: _passwordController,
-//                              obscureText: _obscureText,
-//                              onChanged: (value) =>
-//                                  authBloc.passwordChanged.add(value),
-//                              decoration: InputDecoration(
-//                                labelText: "Password",
-//                                helperText: "Minimum 8 characters.",
-//                                errorText: snapshot.error,
-//                                suffixIcon: new IconButton(
-//                                    icon: Icon(_obscureText
-//                                        ? Icons.visibility
-//                                        : Icons.visibility_off),
-//                                    onPressed: () {
-//                                      setState(() =>
-//                                      _obscureText = !_obscureText);
-//                                    }),
-//                              ),
-//                            )),
+                        StreamBuilder<String>(
+                          stream: authBloc.email,
+                          builder: (context, snapshot) => TextField(
+                                controller: _emailController,
+                                onChanged: (value) =>
+                                    authBloc.emailChanged.add(value),
+                                decoration: InputDecoration(
+                                  labelText: "Email",
+                                  helperText: "Please enter your email id.",
+                                  errorText: snapshot.error,
+                                ),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        StreamBuilder(
+                            stream: authBloc.password,
+                            builder: (context, snapshot) => TextField(
+                                  controller: _passwordController,
+                                  obscureText: _obscureText,
+                                  onChanged: (value) =>
+                                      authBloc.passwordChanged.add(value),
+                                  decoration: InputDecoration(
+                                    labelText: "Password",
+                                    helperText: "Minimum 8 characters.",
+                                    errorText: snapshot.error,
+                                    suffixIcon: new IconButton(
+                                        icon: Icon(_obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                        onPressed: () {
+                                          setState(() =>
+                                              _obscureText = !_obscureText);
+                                        }),
+                                  ),
+                                )),
                         SizedBox(
                           height: 16.0,
                         ),
