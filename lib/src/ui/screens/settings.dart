@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_consciousness/src/ui/screens/auth/auth_home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
@@ -105,6 +106,7 @@ class _SettingsState extends State<Settings> {
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                   onPressed: () async {
+                    FirebaseAuth.instance.signOut();
                     ObjectFactory().prefs.clearPrefs();
                     ObjectFactory().prefs.setIsLoggedIn(false);
 

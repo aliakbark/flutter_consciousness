@@ -60,8 +60,101 @@ class _MyCollectionState extends State<MyCollection> {
                   })),
         ),
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            showSubmitBidDialogue();
+          }),
     );
+  }
+
+  void showSubmitBidDialogue() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SizedBox(
+            width: 500.0,
+            child: SimpleDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)),
+              title: Text(
+                "Add Collections",
+                style: Theme.of(context).textTheme.title,
+                textAlign: TextAlign.center,
+              ),
+              children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+              decoration: BoxDecoration(
+                  border:Border.all(color: Theme
+                      .of(context)
+                  .indicatorColor
+                  .withOpacity(.25),width: 2),
+              borderRadius:BorderRadius.all(Radius.circular(12))),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                decoration: InputDecoration(
+                border: InputBorder.none,
+                labelText: "Collection Title",
+                labelStyle: Theme
+                    .of(context)
+                    .textTheme
+                    .subhead),
+                keyboardType: TextInputType.text,
+                ),
+              ),
+              ),
+            ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * .15,
+                      decoration: BoxDecoration(
+                          border:Border.all(color: Theme
+                              .of(context)
+                              .indicatorColor
+                              .withOpacity(.25),width: 2),
+                          borderRadius:BorderRadius.all(Radius.circular(12))),
+
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              labelText: "Collection Details",
+                              labelStyle: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .subhead),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                        ),
+                      )
+
+                  ),
+                ),
+                ButtonBar(
+                    mainAxisSize: MainAxisSize.min,
+                    alignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text(
+                          "Add",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Theme.of(context).primaryColor,
+                        onPressed: () {},
+                      ),
+                    ]),
+              ],
+            ),
+          );
+        });
   }
 }
