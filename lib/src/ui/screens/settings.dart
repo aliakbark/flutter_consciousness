@@ -52,15 +52,15 @@ class _SettingsState extends State<Settings> {
                 style: Theme.of(context).textTheme.subtitle,
               ),
             ),
-            Divider(),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-              title: Text(
-                "Privacy policy",
-                style: Theme.of(context).textTheme.subtitle,
-              ),
-            ),
+//            Divider(),
+//            ListTile(
+//              contentPadding:
+//                  EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+//              title: Text(
+//                "Privacy policy",
+//                style: Theme.of(context).textTheme.subtitle,
+//              ),
+//            ),
             Divider(),
             ListTile(
               contentPadding:

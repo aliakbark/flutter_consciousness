@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consciousness/src/ui/screens/my_journey/bookmarks.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/collection_card_item.dart';
 
 class MyCollection extends StatefulWidget {
@@ -44,10 +45,18 @@ class _MyCollectionState extends State<MyCollection> {
           },
           body: Container(
               child: ListView.builder(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(22.0),
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(child: CollectionCardItem());
+                    return GestureDetector(
+                      child: CollectionCardItem(),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Bookmarks()));
+                      },
+                    );
                   })),
         ),
       ),

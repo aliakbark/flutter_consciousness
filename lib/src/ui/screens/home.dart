@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
                   size: 30,
                   color: Theme.of(context).primaryColor,
                 ),
-                title: Text('Saved',
+                title: Text('Collection',
                     style: Theme.of(context)
                         .textTheme
                         .subhead
