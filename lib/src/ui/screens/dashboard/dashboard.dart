@@ -3,6 +3,7 @@ import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -53,32 +54,100 @@ class _DashboardSate extends State<Dashboard> {
             ),
           ];
         },
-        body: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                    title: Text(
-                      "ashdk",
-                      style: Theme.of(context).textTheme.subtitle,
-                      overflow: TextOverflow.ellipsis,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return dashboardCard();
+                } else {
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.graphic_eq,
+                                color: Colors.greenAccent,
+                              ),
+                              title: Text(
+                                "Grow collaboratively!",
+                                style: Theme.of(context).textTheme.headline,
+                              ),
+                              subtitle: Text(
+                                "We all got to track our journey of learning. Let's build the world together!!",
+                                style: Theme.of(context).textTheme.subhead,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    subtitle: Text("asjhdg"),
-//                        trailing: index == 0
-//                            ? Chip(
-//                                label: Text("Owner"),
-//                              )
-//                            : null,
-                    onTap: () {},
-                  ),
-                ],
-              );
-            }),
+                  );
+                }
+              }),
+        ),
       )),
+    );
+  }
+
+  Widget dashboardCard() {
+    return Container(
+      height: 192.0,
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
+      child: CarouselSlider(
+        autoPlay: true,
+        pauseAutoPlayOnTouch: Duration(seconds: 3),
+        reverse: false,
+        viewportFraction: 1.0,
+        scrollDirection: Axis.horizontal,
+        enlargeCenterPage: true,
+        enableInfiniteScroll: true,
+        aspectRatio: 16 / 9,
+        onPageChanged: (index) {},
+        items: [1, 2, 3].map((i) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: ListTile(
+                          leading: Image(
+                              image: AssetImage("assets/images/sprout.png")),
+                          title: Text(
+                            "Grow collaboratively!",
+                            style: Theme.of(context).textTheme.headline,
+                          ),
+                          subtitle: Text(
+                            "We all got to track our journey of learning. Let's build the world together!",
+                            style: Theme.of(context).textTheme.subhead,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }

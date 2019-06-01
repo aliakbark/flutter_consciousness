@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_consciousness/src/models/collection.dart';
 import 'package:flutter_consciousness/src/resources/repository/repository.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/bookmarks.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/collection_card_item.dart';
+import 'package:flutter_consciousness/src/utils/object_factory.dart';
 
 class MyCollection extends StatefulWidget {
   @override
@@ -155,8 +157,15 @@ class _MyCollectionState extends State<MyCollection> {
                           style: TextStyle(color: Colors.white),
                         ),
                         color: Theme.of(context).primaryColor,
-                        onPressed: () {
-//                          repository.dataProvider.addCollection(collection);
+                        onPressed: () async {
+                          String user = ObjectFactory().prefs.getUsername();
+                          repository.dataProvider.addCollection(new Collection(
+                              collectionName: 'new Collection',
+                              description: 'description',
+                              collaborators: new List<String>(),
+                              createdBy: user,
+                              createdOn: DateTime.now()));
+                          Navigator.pop(context);
                         },
                       ),
                     ]),

@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
   final _emailController = new TextEditingController();
   final _passwordController = new TextEditingController();
   final _nameController = new TextEditingController();
+  bool _isLoading = false;
 
   final authBloc = AuthBloc();
   bool _obscureText = true;
@@ -113,95 +114,105 @@ class _LoginState extends State<Login> {
                                 stream: authBloc.submitCheckLogin,
                                 builder: (context, snapshot) {
                                   return Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 48.0),
+                                    padding: EdgeInsets.symmetric(vertical: 48.0),
                                     child: RaisedButton(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 16.0),
+                                      padding: EdgeInsets.symmetric(vertical: 16.0),
                                       color: snapshot.hasData
                                           ? Theme.of(context).primaryColor
                                           : Theme.of(context).disabledColor,
                                       onPressed: snapshot.hasData
                                           ? () {
+                                              if (!_isLoading) {
+                                                setState(() {
+                                                  _isLoading = true;
+                                                });
 //                                        authBloc.loadingSink.add(true);
-                                              FirebaseAuth.instance
-                                                  .signInWithEmailAndPassword(
-                                                      email:
-                                                          _emailController.text,
-                                                      password:
-                                                          _passwordController
-                                                              .text)
-                                                  .then((signedInUser) {
-                                                ObjectFactory()
-                                                    .prefs
-                                                    .setUsername(
-                                                        username:
-                                                            signedInUser.email);
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Home()),
-                                                    (Route<dynamic> route) =>
-                                                        false);
-                                              }).catchError((e) {
-                                                print(e);
-//                                                authBloc.loadingSink.add(false);
-                                                if (e
-                                                    .toString()
-                                                    .contains("no user")) {
-                                                  FirebaseAuth.instance
-                                                      .createUserWithEmailAndPassword(
-                                                          email:
-                                                              _emailController
-                                                                  .text,
-                                                          password:
-                                                              _passwordController
-                                                                  .text)
-                                                      .then((firebaseUser) {
-//                                                        authBloc.loadingSink.add(false);
-                                                    print("signup user");
-                                                    print(firebaseUser.uid);
-                                                    ObjectFactory()
-                                                        .prefs
-                                                        .setUsername(
-                                                            username:
-                                                                firebaseUser
-                                                                    .email);
-                                                    //Navigate to NextPage
-                                                    ObjectFactory()
-                                                        .prefs
-                                                        .setIsLoggedIn(true);
-                                                    Navigator
-                                                        .pushAndRemoveUntil(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        Home()),
-                                                            (Route<dynamic>
-                                                                    route) =>
-                                                                false);
+                                                FirebaseAuth.instance
+                                                    .signInWithEmailAndPassword(
+                                                        email: _emailController
+                                                            .text,
+                                                        password:
+                                                            _passwordController
+                                                                .text)
+                                                    .then((signedInUser) {
+                                                  Navigator.pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Home()),
+                                                      (Route<dynamic> route) =>
+                                                          false);
+                                                }).catchError((e) {
+                                                  setState(() {
+                                                    _isLoading = false;
                                                   });
-                                                } else if (e.toString().contains(
-                                                    "password is invalid")) {
-                                                  print(
-                                                      "Password is invalid, Check password");
-                                                }
-                                              });
+                                                  print(e);
+//                                                authBloc.loadingSink.add(false);
+                                                  if (e
+                                                      .toString()
+                                                      .contains("no user")) {
+                                                    FirebaseAuth.instance
+                                                        .createUserWithEmailAndPassword(
+                                                            email:
+                                                                _emailController
+                                                                    .text,
+                                                            password:
+                                                                _passwordController
+                                                                    .text)
+                                                        .then((firebaseUser) {
+//                                                        authBloc.loadingSink.add(false);
+                                                      print("signup user");
+                                                      print(firebaseUser.uid);
+                                                      //Navigate to NextPage
+                                                      ObjectFactory()
+                                                          .prefs
+                                                          .setIsLoggedIn(true);
+                                                      Navigator.pushAndRemoveUntil(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      Home()),
+                                                          (Route<dynamic>
+                                                                  route) =>
+                                                              false);
+                                                      FirebaseAuth.instance
+                                                          .currentUser()
+                                                          .then(
+                                                              (firebaseUser2) {
+                                                        print("signin user");
+                                                        print(
+                                                            firebaseUser2.uid);
+                                                      });
+                                                    });
+                                                  } else if (e.toString().contains(
+                                                      "password is invalid")) {
+                                                    print(
+                                                        "Password is invalid, Check password");
+                                                  }
+                                                });
+                                              }
                                             }
                                           : null,
-                                      child: Text(
-                                        "Continue",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .button
-                                            .copyWith(
-                                              color: snapshot.hasData
-                                                  ? Colors.white
-                                                  : Colors.black26,
+                                      child: !_isLoading
+                                          ? Text(
+                                              "Continue",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .button
+                                                  .copyWith(
+                                                    color: snapshot.hasData
+                                                        ? Colors.white
+                                                        : Colors.black26,
+                                                  ),
+                                            )
+                                          : Center(
+                                              child: CircularProgressIndicator(
+                                                  backgroundColor: Theme.of(
+                                                          context)
+                                                      .scaffoldBackgroundColor),
+                                              heightFactor: .5,
                                             ),
-                                      ),
                                     ),
                                   );
                                 }),
