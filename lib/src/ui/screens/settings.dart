@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_consciousness/src/ui/screens/auth/auth_home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
@@ -51,15 +52,15 @@ class _SettingsState extends State<Settings> {
                 style: Theme.of(context).textTheme.subtitle,
               ),
             ),
-            Divider(),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-              title: Text(
-                "Privacy policy",
-                style: Theme.of(context).textTheme.subtitle,
-              ),
-            ),
+//            Divider(),
+//            ListTile(
+//              contentPadding:
+//                  EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+//              title: Text(
+//                "Privacy policy",
+//                style: Theme.of(context).textTheme.subtitle,
+//              ),
+//            ),
             Divider(),
             ListTile(
               contentPadding:
@@ -105,6 +106,7 @@ class _SettingsState extends State<Settings> {
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                   onPressed: () async {
+                    FirebaseAuth.instance.signOut();
                     ObjectFactory().prefs.clearPrefs();
                     ObjectFactory().prefs.setIsLoggedIn(false);
 

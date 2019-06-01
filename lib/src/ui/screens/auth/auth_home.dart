@@ -65,7 +65,7 @@ class AuthHome extends StatelessWidget {
 //                        color: Theme.of(context).buttonColor,
                         textColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text("GO"),
+                        child: Text("Get started"),
                       ),
                     ],
                   ),

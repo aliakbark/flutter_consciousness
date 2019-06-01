@@ -1,3 +1,4 @@
+import 'package:flutter_consciousness/src/ui/screens/settings.dart';
 import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -14,56 +15,70 @@ class _DashboardSate extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: NestedScrollView(
+      body: SafeArea(
+          child: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-//                  ImageIcon(
-//                    AssetImage(
-//                      "assets/icons/home_outline.png",
-//                    ),
-//                    size: 24.0,
-//                    color: Theme.of(context).primaryColor,
-//                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      "Flutter consciousness",
-                      style: Theme.of(context)
-                          .textTheme
-                          .title
-                          .copyWith(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                ],
-              ),
-              floating: true,
-              snap: true,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              elevation: 0.0,
-              pinned: false,
-              forceElevated: true,
-              actions: <Widget>[],
+              iconTheme: IconThemeData(color: Colors.black54),
+              expandedHeight: 150.0,
+              elevation: 0.5,
+              floating: false,
+              pinned: true,
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Settings()));
+                    }),
+              ],
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.parallax,
+                centerTitle: true,
+                background: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                title: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    new Text(
+                      "Flutter Consciousness",
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ];
         },
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                Constants.sample_text3,
-                style: Theme.of(context).textTheme.title,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ));
+        body: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                    title: Text(
+                      "ashdk",
+                      style: Theme.of(context).textTheme.subtitle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text("asjhdg"),
+//                        trailing: index == 0
+//                            ? Chip(
+//                                label: Text("Owner"),
+//                              )
+//                            : null,
+                    onTap: () {},
+                  ),
+                ],
+              );
+            }),
+      )),
+    );
   }
 }
