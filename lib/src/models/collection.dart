@@ -12,10 +12,9 @@ String collectionToJson(Collection data) => json.encode(data.toJson());
 class Collection {
   String collectionName;
   String description;
-  String createdOn;
+  DateTime createdOn;
   String createdBy;
   List<String> collaborators;
-  List<Datum> data;
 
   Collection({
     this.collectionName,
@@ -23,7 +22,6 @@ class Collection {
     this.createdOn,
     this.createdBy,
     this.collaborators,
-    this.data,
   });
 
   factory Collection.fromJson(Map<String, dynamic> json) => new Collection(
@@ -33,7 +31,6 @@ class Collection {
         createdBy: json["created_by"],
         collaborators:
             new List<String>.from(json["collaborators"].map((x) => x)),
-        data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,7 +39,6 @@ class Collection {
         "created_on": createdOn,
         "created_by": createdBy,
         "collaborators": new List<dynamic>.from(collaborators.map((x) => x)),
-        "data": new List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
@@ -50,7 +46,7 @@ class Datum {
   String data;
   String dataType;
   String createdBy;
-  String createdOn;
+  DateTime createdOn;
 
   Datum({
     this.data,

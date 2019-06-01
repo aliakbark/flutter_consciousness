@@ -5,6 +5,7 @@ import 'package:flutter_consciousness/src/ui/screens/home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consciousness/src/blocs/auth_bloc.dart';
+import 'package:flutter_consciousness/src/utils/prefs.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -113,11 +114,9 @@ class _LoginState extends State<Login> {
                                 stream: authBloc.submitCheckLogin,
                                 builder: (context, snapshot) {
                                   return Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 48.0),
+                                    padding: EdgeInsets.symmetric(vertical: 48.0),
                                     child: RaisedButton(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 16.0),
+                                      padding: EdgeInsets.symmetric(vertical: 16.0),
                                       color: snapshot.hasData
                                           ? Theme.of(context).primaryColor
                                           : Theme.of(context).disabledColor,
