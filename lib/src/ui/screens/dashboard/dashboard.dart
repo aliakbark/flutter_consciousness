@@ -80,7 +80,7 @@ class _DashboardSate extends State<Dashboard> {
                               ),
                               title: Text(
                                 "Grow collaboratively!",
-                                style: Theme.of(context).textTheme.display1,
+                                style: Theme.of(context).textTheme.headline,
                               ),
                               subtitle: Text(
                                 "We all got to track our journey of learning. Let's build the world together!!",
@@ -132,7 +132,7 @@ class _DashboardSate extends State<Dashboard> {
                               image: AssetImage("assets/images/sprout.png")),
                           title: Text(
                             "Grow collaboratively!",
-                            style: Theme.of(context).textTheme.display1,
+                            style: Theme.of(context).textTheme.headline,
                           ),
                           subtitle: Text(
                             "We all got to track our journey of learning. Let's build the world together!",
