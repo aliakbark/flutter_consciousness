@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 
-class MyCollections extends StatefulWidget {
+class Dashboard extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _MyCollectionsState();
+    return _DashboardSate();
   }
 }
 
-class _MyCollectionsState extends State<MyCollections> {
+class _DashboardSate extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

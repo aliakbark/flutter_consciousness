@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SharedWithMeHome extends StatefulWidget {
+class SharedWithMe extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _SharedWithMeHomeState();
+    return _SharedWithMeState();
   }
 }
 
-class _SharedWithMeHomeState extends State<SharedWithMeHome> {
+class _SharedWithMeState extends State<SharedWithMe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
