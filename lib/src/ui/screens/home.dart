@@ -5,6 +5,7 @@ import 'package:flutter_consciousness/src/ui/screens/shared_journey/shared_journ
 import 'package:flutter_consciousness/src/ui/widgets/util_widgets.dart';
 import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,55 +15,47 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
+  int _selectedIndex = 1;
+  int _currentIndex;
   final List<Widget> _children = [
-    Dashboard(),
-    MyJourneyHome(),
-    SharedJourneyHome(),
+    MyCollections(),
+    ConsciousnessHome(),
+    SharedWithMeHome(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: _children[_currentIndex],
+        child: _children[_selectedIndex],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        currentIndex: _currentIndex,
-        showSelectedLabels: true,
-        selectedFontSize: 16.0,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.black45,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          new BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/icons/home_outline.png"),
-              size: 24.0,
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _selectedIndex,
+          showElevation: true, // use this to remove appBar's elevation
+          onItemSelected: (index) => setState(() {
+            _selectedIndex = index;
+//            _pageController.animateToPage(index,
+//                duration: Duration(milliseconds: 300), curve: Curves.ease);
+          }),
+          items: [
+            BottomNavyBarItem(
+              icon: Icon(Icons.apps),
+              title: Text('Home'),
+              activeColor: Colors.red,
             ),
-            title: Text(
-              'Home',
+            BottomNavyBarItem(
+                icon: Icon(Icons.people),
+                title: Text('Users'),
+                activeColor: Colors.purpleAccent
             ),
-          ),
-          new BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage("assets/icons/tag_outline.png"),
-                size: 24.0,
-              ),
-              title: Text(
-                'My Deals',
-              )),
-          new BottomNavigationBarItem(
-              icon: Icon(
-                Icons.menu,
-                size: 24.0,
-              ),
-              title: Text(
-                'More',
-              )),
-        ],
-      ),
+            BottomNavyBarItem(
+                icon: Icon(Icons.message),
+                title: Text('Messages'),
+                activeColor: Colors.pink
+            ),
+
+          ],
+        )
     );
   }
 

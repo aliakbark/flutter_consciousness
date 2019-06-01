@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyJourneyHome extends StatefulWidget {
+class ConsciousnessHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _MyJourneyHomeState();
+    return _ConsciousnessHomeState();
   }
 }
 
-class _MyJourneyHomeState extends State<MyJourneyHome> {
+class _ConsciousnessHomeState extends State<ConsciousnessHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

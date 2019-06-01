@@ -31,6 +31,7 @@ dependencies:
   country_pickers: ^1.1.0
   overlay_support: ^0.1.0
   toast: ^0.1.4
+  bottom_navy_bar: ^4.2.0
 
 dev_dependencies:
   flutter_test:
