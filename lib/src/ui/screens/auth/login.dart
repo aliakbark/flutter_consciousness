@@ -121,6 +121,10 @@ class _LoginState extends State<Login> {
                                           : Theme.of(context).disabledColor,
                                       onPressed: snapshot.hasData
                                           ? () {
+                                        if(!_isLoading){
+                                        setState(() {
+                                          _isLoading=true;
+                                        });
 //                                        authBloc.loadingSink.add(true);
                                         FirebaseAuth.instance
                                                   .signInWithEmailAndPassword(
@@ -136,6 +140,9 @@ class _LoginState extends State<Login> {
                                                   (Route<dynamic> route) =>
                                               false);
                                               }).catchError((e) {
+                                                setState(() {
+                                                  _isLoading = false;
+                                                });
                                                 print(e);
 //                                                authBloc.loadingSink.add(false);
                                                 if (e
@@ -175,7 +182,7 @@ class _LoginState extends State<Login> {
                                                   print(
                                                       "Password is invalid, Check password");
                                                 }
-                                              });
+                                              });}
                                             }
                                           : null,
                                       child: !_isLoading?Text(
@@ -188,7 +195,7 @@ class _LoginState extends State<Login> {
                                                   ? Colors.white
                                                   : Colors.black26,
                                             ),
-                                      ):Center(child: CircularProgressIndicator(backgroundColor: Theme.of(context).scaffoldBackgroundColor),),
+                                      ):Center(child: CircularProgressIndicator(backgroundColor: Theme.of(context).scaffoldBackgroundColor),heightFactor:.5,),
                                     ),
                                   );
                                 }),
