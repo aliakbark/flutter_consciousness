@@ -1,5 +1,6 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_consciousness/src/ui/screens/home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: Colors.black54),
       ),
-      resizeToAvoidBottomPadding:true ,
+      resizeToAvoidBottomPadding: true,
       body: new SafeArea(
           child: StreamBuilder(
               stream: authBloc.loadingListener,
@@ -161,14 +162,54 @@ class _LoginState extends State<Login> {
                                       : Theme.of(context).disabledColor,
                                   onPressed: snapshot.hasData
                                       ? () {
-                                          ObjectFactory()
-                                              .prefs
-                                              .setIsLoggedIn(true);
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => Home()),
-                                              (Route<dynamic> route) => false);
+                                          FirebaseAuth.instance
+                                              .signInWithEmailAndPassword(
+                                                  email: _emailController.text,
+                                                  password:
+                                                      _passwordController.text)
+                                              .then((signedInUser) {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    '/homepage');
+                                          }).catchError((e) {
+                                            print(e);
+                                            if (e
+                                                .toString()
+                                                .contains("no user")) {
+                                              FirebaseAuth.instance
+                                                  .createUserWithEmailAndPassword(
+                                                      email:
+                                                          _emailController.text,
+                                                      password:
+                                                          _passwordController
+                                                              .text)
+                                                  .then((firebaseUser) {
+                                                print("signup user");
+                                                print(firebaseUser.uid);
+                                                //Navigate to NextPage
+                                                ObjectFactory()
+                                                    .prefs
+                                                    .setIsLoggedIn(true);
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Home()),
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                                FirebaseAuth.instance
+                                                    .currentUser()
+                                                    .then((firebaseUser2) {
+                                                  print("signin user");
+                                                  print(firebaseUser2.uid);
+                                                });
+                                              });
+                                            } else if (e.toString().contains(
+                                                "password is invalid")) {
+                                              print(
+                                                  "Password is invalid, Check password");
+                                            }
+                                          });
                                         }
                                       : null,
                                   child: Text(
