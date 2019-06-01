@@ -72,21 +72,19 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Raleway
+    - family: Noto Sans HK
       fonts:
-        - asset: assets/fonts/raleway/RalewayItalic.ttf
+        - asset: assets/fonts/noto_Sans_HK/NotoSansHK-Light.otf
           weight: 300
-          style: italic
-        - asset: assets/fonts/raleway/RalewayRegular.ttf
+        - asset: assets/fonts/noto_Sans_HK/NotoSansHK-Regular.otf
           weight: 400
-        - asset: assets/fonts/raleway/RalewayMedium.ttf
+        - asset: assets/fonts/noto_Sans_HK/NotoSansHK-Medium.otf
           weight: 500
-        - asset: assets/fonts/raleway/RalewayBold.ttf
+        - asset: assets/fonts/noto_Sans_HK/NotoSansHK-Bold.otf
           weight: 700
-        - asset: assets/fonts/raleway/RalewayExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/raleway/RalewayBlack.ttf
+        - asset: assets/fonts/noto_Sans_HK/NotoSansHK-Black.otf
           weight: 900
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
