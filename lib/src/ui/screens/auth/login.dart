@@ -1,5 +1,6 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_consciousness/src/ui/screens/home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: Colors.black54),
       ),
+      resizeToAvoidBottomPadding: true,
       body: new SafeArea(
           child: StreamBuilder(
               stream: authBloc.loadingListener,
@@ -54,59 +56,59 @@ class _LoginState extends State<Login> {
                 } else {
                   return new Container(
                     margin:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        StreamBuilder<String>(
-                          stream: authBloc.name,
-                          builder: (context, snapshot) => TextField(
-                                controller: _nameController,
-                                onChanged: (value) =>
-                                    authBloc.nameChanged.add(value),
-                                decoration: InputDecoration(
-                                  labelText: "Your name",
-                                  helperText: "Please enter your name.",
-                                  errorText: snapshot.error,
-                                ),
-                                keyboardType: TextInputType.text,
-                              ),
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            new InkWell(
-                              child: _buildDialogItem(_selectedDialogCountry),
-                              onTap: _openCountryPickerDialog,
-                            ),
-                            SizedBox(
-                              width: 8.0,
-                            ),
-                            new Expanded(
-                              child: StreamBuilder<String>(
-                                  stream: authBloc.mobile,
-                                  builder: (context, snapshot) => TextField(
-                                        controller: _phoneNumberController,
-                                        onChanged: (value) =>
-                                            authBloc.mobileChanged.add(value),
-                                        decoration: InputDecoration(
-                                            labelText: "Phone number",
-                                            errorText: snapshot.error),
-                                        keyboardType: TextInputType.phone,
-                                      )),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
+//                        Row(
+//                          mainAxisSize: MainAxisSize.max,
+//                          crossAxisAlignment: CrossAxisAlignment.center,
+//                          mainAxisAlignment: MainAxisAlignment.start,
+//                          children: <Widget>[
+//                            new InkWell(
+//                              child: _buildDialogItem(_selectedDialogCountry),
+//                              onTap: _openCountryPickerDialog,
+//                            ),
+//                            SizedBox(
+//                              width: 8.0,
+//                            ),
+//                            new Expanded(
+//                              child: StreamBuilder<String>(
+//                                  stream: authBloc.mobile,
+//                                  builder: (context, snapshot) => TextField(
+//                                        controller: _phoneNumberController,
+//                                        onChanged: (value) =>
+//                                            authBloc.mobileChanged.add(value),
+//                                        decoration: InputDecoration(
+//                                            labelText: "Phone number",
+//                                            errorText: snapshot.error),
+//                                        keyboardType: TextInputType.phone,
+//                                      )),
+//                            ),
+//                          ],
+//                        ),
+//                        SizedBox(
+//                          height: 16.0,
+//                        ),
+//                        StreamBuilder<String>(
+//                          stream: authBloc.name,
+//                          builder: (context, snapshot) => TextField(
+//                                controller: _nameController,
+//                                onChanged: (value) =>
+//                                    authBloc.nameChanged.add(value),
+//                                decoration: InputDecoration(
+//                                  labelText: "Your name",
+//                                  helperText: "Please enter your name.",
+//                                  errorText: snapshot.error,
+//                                ),
+//                                keyboardType: TextInputType.text,
+//                              ),
+//                        ),
+//                        SizedBox(
+//                          height: 16.0,
+//                        ),
                         StreamBuilder<String>(
                           stream: authBloc.email,
                           builder: (context, snapshot) => TextField(
@@ -148,8 +150,8 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 16.0,
                         ),
-                        StreamBuilder<String>(
-                            stream: authBloc.mobile,
+                        StreamBuilder<bool>(
+                            stream: authBloc.submitCheckLogin,
                             builder: (context, snapshot) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(vertical: 48.0),
@@ -160,14 +162,54 @@ class _LoginState extends State<Login> {
                                       : Theme.of(context).disabledColor,
                                   onPressed: snapshot.hasData
                                       ? () {
-                                          ObjectFactory()
-                                              .prefs
-                                              .setIsLoggedIn(true);
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => Home()),
-                                              (Route<dynamic> route) => false);
+                                          FirebaseAuth.instance
+                                              .signInWithEmailAndPassword(
+                                                  email: _emailController.text,
+                                                  password:
+                                                      _passwordController.text)
+                                              .then((signedInUser) {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    '/homepage');
+                                          }).catchError((e) {
+                                            print(e);
+                                            if (e
+                                                .toString()
+                                                .contains("no user")) {
+                                              FirebaseAuth.instance
+                                                  .createUserWithEmailAndPassword(
+                                                      email:
+                                                          _emailController.text,
+                                                      password:
+                                                          _passwordController
+                                                              .text)
+                                                  .then((firebaseUser) {
+                                                print("signup user");
+                                                print(firebaseUser.uid);
+                                                //Navigate to NextPage
+                                                ObjectFactory()
+                                                    .prefs
+                                                    .setIsLoggedIn(true);
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Home()),
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                                FirebaseAuth.instance
+                                                    .currentUser()
+                                                    .then((firebaseUser2) {
+                                                  print("signin user");
+                                                  print(firebaseUser2.uid);
+                                                });
+                                              });
+                                            } else if (e.toString().contains(
+                                                "password is invalid")) {
+                                              print(
+                                                  "Password is invalid, Check password");
+                                            }
+                                          });
                                         }
                                       : null,
                                   child: Text(
