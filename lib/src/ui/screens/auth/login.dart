@@ -29,6 +29,7 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
+    authBloc.dispose();
     super.dispose();
   }
 
@@ -119,18 +120,23 @@ class _LoginState extends State<Login> {
                                           : Theme.of(context).disabledColor,
                                       onPressed: snapshot.hasData
                                           ? () {
-                                        authBloc.loadingSink.add(true);
+//                                        authBloc.loadingSink.add(true);
                                         FirebaseAuth.instance
                                                   .signInWithEmailAndPassword(
                                                       email: _emailController.text,
                                                       password:
                                                           _passwordController.text)
                                                   .then((signedInUser) {
-                                                Navigator.of(context)
-                                                    .pushReplacementNamed(
-                                                        '/homepage');
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Home()),
+                                                  (Route<dynamic> route) =>
+                                              false);
                                               }).catchError((e) {
                                                 print(e);
+//                                                authBloc.loadingSink.add(false);
                                                 if (e
                                                     .toString()
                                                     .contains("no user")) {
@@ -142,7 +148,7 @@ class _LoginState extends State<Login> {
                                                               _passwordController
                                                                   .text)
                                                       .then((firebaseUser) {
-                                                        authBloc.loadingSink.add(false);
+//                                                        authBloc.loadingSink.add(false);
                                                     print("signup user");
                                                     print(firebaseUser.uid);
                                                     //Navigate to NextPage
