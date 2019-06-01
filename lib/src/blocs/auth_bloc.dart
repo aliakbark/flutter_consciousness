@@ -17,16 +17,31 @@ class AuthBloc extends Object with Validators implements BaseBloc {
   final _nameController = BehaviorSubject<String>();
 
   StreamSink<String> get emailChanged => _emailController.sink;
+
   StreamSink<String> get passwordChanged => _passwordController.sink;
+
   StreamSink<String> get mobileChanged => _mobileController.sink;
+
   StreamSink<String> get nameChanged => _nameController.sink;
 
-  Stream<String> get mobile => _mobileController.stream.transform(mobileValidator);
+  Stream<String> get mobile =>
+      _mobileController.stream.transform(mobileValidator);
+
   Stream<String> get email => _emailController.stream.transform(emailValidator);
-  Stream<String> get password => _passwordController.stream.transform(passwordValidator);
+
+  Stream<String> get password =>
+      _passwordController.stream.transform(passwordValidator);
+
   Stream<String> get name => _nameController.stream.transform(nameValidator);
 
+  Stream<bool> get submitCheckSignUp {
+    return Observable.combineLatest4(
+        mobile, name, email, password, (a, b, c, d) => true);
+  }
 
+  Stream<bool> get submitCheckLogin {
+    return Observable.combineLatest2(email, password, (a, b) => true);
+  }
 
   @override
   void dispose() {

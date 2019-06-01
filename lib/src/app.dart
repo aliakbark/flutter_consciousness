@@ -32,7 +32,7 @@ class App extends StatelessWidget {
             unselectedLabelStyle: Theme.of(context).textTheme.subtitle,
             labelColor: Theme.of(context).primaryColor,
           ),
-          disabledColor: Colors.white10,
+          disabledColor: Colors.white70,
           iconTheme: IconThemeData(color: Colors.black45),
           fontFamily: "Raleway",
           textTheme: TextTheme(
