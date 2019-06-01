@@ -14,11 +14,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xFFf0f0f0),
-          primaryColor: Colors.green,
-          primarySwatch: Colors.green,
-          accentColor: Colors.white,
-          buttonColor: Colors.green,
+          scaffoldBackgroundColor: Color(0xFFf4f6f0),
+          primaryColor: Color(0xFF485550),
+//          primarySwatch: Colors.green,
+          accentColor: Color(0xFFc0eb6a),
+          buttonColor: Color(0xFF485550),
           dialogTheme: DialogTheme(),
           buttonTheme: ButtonThemeData(
               buttonColor: Colors.green,
