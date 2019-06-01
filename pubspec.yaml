@@ -59,6 +59,7 @@ flutter:
     - assets/icons/tag_outline.png
     - assets/icons/home_outline.png
     - assets/images/firstImage.jpg
+    - assets/images/sprout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
