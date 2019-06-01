@@ -31,6 +31,8 @@ dependencies:
   country_pickers: ^1.1.0
   overlay_support: ^0.1.0
   toast: ^0.1.4
+  firebase_auth: ^0.11.1+5
+  cloud_firestore: ^0.12.1
 
 dev_dependencies:
   flutter_test:
