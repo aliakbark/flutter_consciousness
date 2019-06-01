@@ -30,14 +30,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     // TODO: implement initState
-    Repository repository = new Repository();
-    String user = ObjectFactory().prefs.getUsername();
-    repository.dataProvider.addCollection(new Collection(
-        collectionName: 'new Collection',
-        description: 'description',
-        collaborators: new List<String>(),
-        createdBy: user,
-        createdOn: DateTime.now()));
+//    Repository repository = new Repository();
+//    String user = ObjectFactory().prefs.getUsername();
+//    repository.dataProvider.addCollection(new Collection(
+//        collectionName: 'new Collection',
+//        description: 'description',
+//        collaborators: new List<String>(),
+//        createdBy: user,
+//        createdOn: DateTime.now()));
     super.initState();
   }
 
