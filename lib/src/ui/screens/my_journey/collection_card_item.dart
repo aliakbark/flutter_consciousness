@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_consciousness/src/models/collection.dart';
 
 class CollectionCardItem extends StatefulWidget {
+  DocumentSnapshot document ;
+  CollectionCardItem(this.document);
+
   @override
   _CollectionCardItemState createState() => _CollectionCardItemState();
 }
@@ -45,7 +50,7 @@ class _CollectionCardItemState extends State<CollectionCardItem> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
 
-                      Text("Tittle of collection",style: TextStyle(fontSize: 25,color: Colors.white),)
+                      Text(widget.document.data['collection_name'],style: TextStyle(fontSize: 25,color: Colors.white),)
                     ],
                   ),
                 ),
@@ -56,19 +61,19 @@ class _CollectionCardItemState extends State<CollectionCardItem> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
 
-                        Text("Tittle of collection",style: TextStyle(fontSize: 15,color: Colors.white),)
+                        Text(widget.document.data['description'],style: TextStyle(fontSize: 15,color: Colors.white),)
                       ],
                     ),
                   ),
                   SizedBox(height: 20,),
                   Padding(
-                    padding: const EdgeInsets.only(left:8.0),
+                    padding: const EdgeInsets.only(right:8.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
 
-                        Text("date and time",style: TextStyle(fontSize: 15,color: Colors.white),)
+                        Text("",style: TextStyle(fontSize: 15,color: Colors.white),)
                       ],
                     ),
                   )

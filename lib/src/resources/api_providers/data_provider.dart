@@ -1,9 +1,11 @@
-import 'dart:convert';
+
+  import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consciousness/src/models/collection.dart';
+import 'package:flutter_consciousness/src/utils/object_factory.dart';
 
 class DataProvider {
 //  Future<LoginResponse> login(LoginRequest loginRequest) async {
@@ -33,11 +35,11 @@ class DataProvider {
         .add(data.toJson());
   }
 
-  getMyCollectionList() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    return await Firestore.instance
+  getMyCollectionList() {
+    String user = ObjectFactory().prefs.getUsername();
+    return Firestore.instance
         .collection('collections')
-        .where('created_by', isEqualTo: user.email)
+        .where('created_by', isEqualTo: user)
         .snapshots();
   }
 

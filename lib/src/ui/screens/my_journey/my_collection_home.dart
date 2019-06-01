@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consciousness/src/resources/repository/repository.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/bookmarks.dart';
@@ -54,20 +55,26 @@ class _MyCollectionState extends State<MyCollection> {
             ];
           },
           body: Container(
-              child: ListView.builder(
-                  padding: EdgeInsets.all(22.0),
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      child: CollectionCardItem(),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Bookmarks()));
-                      },
-                    );
-                  })),
+              child: StreamBuilder(
+                  stream: repository.dataProvider.getMyCollectionList(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return const Text('Loading...');
+                  return ListView.builder(
+                      padding: EdgeInsets.all(22.0),
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          child: CollectionCardItem(snapshot.data.documents[index]),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Bookmarks()));
+                          },
+                        );
+                      });
+                }
+              )),
         ),
       ),
       floatingActionButton: FloatingActionButton(
