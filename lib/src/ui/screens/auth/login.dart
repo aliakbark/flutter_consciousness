@@ -43,6 +43,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: Colors.black54),
       ),
+      resizeToAvoidBottomPadding:true ,
       body: new SafeArea(
           child: StreamBuilder(
               stream: authBloc.loadingListener,
@@ -54,59 +55,59 @@ class _LoginState extends State<Login> {
                 } else {
                   return new Container(
                     margin:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        StreamBuilder<String>(
-                          stream: authBloc.name,
-                          builder: (context, snapshot) => TextField(
-                                controller: _nameController,
-                                onChanged: (value) =>
-                                    authBloc.nameChanged.add(value),
-                                decoration: InputDecoration(
-                                  labelText: "Your name",
-                                  helperText: "Please enter your name.",
-                                  errorText: snapshot.error,
-                                ),
-                                keyboardType: TextInputType.text,
-                              ),
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            new InkWell(
-                              child: _buildDialogItem(_selectedDialogCountry),
-                              onTap: _openCountryPickerDialog,
-                            ),
-                            SizedBox(
-                              width: 8.0,
-                            ),
-                            new Expanded(
-                              child: StreamBuilder<String>(
-                                  stream: authBloc.mobile,
-                                  builder: (context, snapshot) => TextField(
-                                        controller: _phoneNumberController,
-                                        onChanged: (value) =>
-                                            authBloc.mobileChanged.add(value),
-                                        decoration: InputDecoration(
-                                            labelText: "Phone number",
-                                            errorText: snapshot.error),
-                                        keyboardType: TextInputType.phone,
-                                      )),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
+//                        Row(
+//                          mainAxisSize: MainAxisSize.max,
+//                          crossAxisAlignment: CrossAxisAlignment.center,
+//                          mainAxisAlignment: MainAxisAlignment.start,
+//                          children: <Widget>[
+//                            new InkWell(
+//                              child: _buildDialogItem(_selectedDialogCountry),
+//                              onTap: _openCountryPickerDialog,
+//                            ),
+//                            SizedBox(
+//                              width: 8.0,
+//                            ),
+//                            new Expanded(
+//                              child: StreamBuilder<String>(
+//                                  stream: authBloc.mobile,
+//                                  builder: (context, snapshot) => TextField(
+//                                        controller: _phoneNumberController,
+//                                        onChanged: (value) =>
+//                                            authBloc.mobileChanged.add(value),
+//                                        decoration: InputDecoration(
+//                                            labelText: "Phone number",
+//                                            errorText: snapshot.error),
+//                                        keyboardType: TextInputType.phone,
+//                                      )),
+//                            ),
+//                          ],
+//                        ),
+//                        SizedBox(
+//                          height: 16.0,
+//                        ),
+//                        StreamBuilder<String>(
+//                          stream: authBloc.name,
+//                          builder: (context, snapshot) => TextField(
+//                                controller: _nameController,
+//                                onChanged: (value) =>
+//                                    authBloc.nameChanged.add(value),
+//                                decoration: InputDecoration(
+//                                  labelText: "Your name",
+//                                  helperText: "Please enter your name.",
+//                                  errorText: snapshot.error,
+//                                ),
+//                                keyboardType: TextInputType.text,
+//                              ),
+//                        ),
+//                        SizedBox(
+//                          height: 16.0,
+//                        ),
                         StreamBuilder<String>(
                           stream: authBloc.email,
                           builder: (context, snapshot) => TextField(
@@ -148,8 +149,8 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 16.0,
                         ),
-                        StreamBuilder<String>(
-                            stream: authBloc.mobile,
+                        StreamBuilder<bool>(
+                            stream: authBloc.submitCheckLogin,
                             builder: (context, snapshot) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(vertical: 48.0),
