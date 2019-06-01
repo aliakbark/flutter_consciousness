@@ -80,7 +80,7 @@ class _DashboardSate extends State<Dashboard> {
                               ),
                               title: Text(
                                 "Grow collaboratively!",
-                                style: Theme.of(context).textTheme.display1,
+                                style: Theme.of(context).textTheme.headline,
                               ),
                               subtitle: Text(
                                 "We all got to track our journey of learning. Let's build the world together!!",
@@ -103,7 +103,7 @@ class _DashboardSate extends State<Dashboard> {
     return Container(
       height: 192.0,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
       child: CarouselSlider(
         autoPlay: true,
         pauseAutoPlayOnTouch: Duration(seconds: 3),
@@ -132,7 +132,7 @@ class _DashboardSate extends State<Dashboard> {
                               image: AssetImage("assets/images/sprout.png")),
                           title: Text(
                             "Grow collaboratively!",
-                            style: Theme.of(context).textTheme.display1,
+                            style: Theme.of(context).textTheme.headline,
                           ),
                           subtitle: Text(
                             "We all got to track our journey of learning. Let's build the world together!",
