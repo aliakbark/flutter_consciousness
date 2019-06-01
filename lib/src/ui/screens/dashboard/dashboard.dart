@@ -1,3 +1,4 @@
+import 'package:flutter_consciousness/src/ui/screens/auth/login.dart';
 import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -60,7 +61,9 @@ class _MyCollectionsState extends State<MyCollections> {
                         Icons.location_on,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                      },
                     ),
                   ],
                 ),
@@ -68,17 +71,17 @@ class _MyCollectionsState extends State<MyCollections> {
             ),
           ];
         },
-        body: new ListView.builder
-          (
-            itemCount: 3,
-            itemBuilder: (BuildContext ctxt, int index) {
-              return Card(
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              );
-            }
+        body: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
+                Constants.sample_text3,
+                style: Theme.of(context).textTheme.title,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
         ),
       ),
     ));

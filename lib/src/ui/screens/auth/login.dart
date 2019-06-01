@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
   final _passwordController = new TextEditingController();
   final _nameController = new TextEditingController();
 
+  final authBloc = AuthBloc();
   bool _obscureText = true;
 
   @override
@@ -44,221 +45,153 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: Colors.black54),
       ),
-      resizeToAvoidBottomPadding: true,
       body: new SafeArea(
           child: StreamBuilder(
               stream: authBloc.loadingListener,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
-                  return new Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-//                        Row(
-//                          mainAxisSize: MainAxisSize.max,
-//                          crossAxisAlignment: CrossAxisAlignment.center,
-//                          mainAxisAlignment: MainAxisAlignment.start,
-//                          children: <Widget>[
-//                            new InkWell(
-//                              child: _buildDialogItem(_selectedDialogCountry),
-//                              onTap: _openCountryPickerDialog,
-//                            ),
-//                            SizedBox(
-//                              width: 8.0,
-//                            ),
-//                            new Expanded(
-//                              child: StreamBuilder<String>(
-//                                  stream: authBloc.mobile,
-//                                  builder: (context, snapshot) => TextField(
-//                                        controller: _phoneNumberController,
-//                                        onChanged: (value) =>
-//                                            authBloc.mobileChanged.add(value),
-//                                        decoration: InputDecoration(
-//                                            labelText: "Phone number",
-//                                            errorText: snapshot.error),
-//                                        keyboardType: TextInputType.phone,
-//                                      )),
-//                            ),
-//                          ],
-//                        ),
-//                        SizedBox(
-//                          height: 16.0,
-//                        ),
-//                        StreamBuilder<String>(
-//                          stream: authBloc.name,
-//                          builder: (context, snapshot) => TextField(
-//                                controller: _nameController,
-//                                onChanged: (value) =>
-//                                    authBloc.nameChanged.add(value),
-//                                decoration: InputDecoration(
-//                                  labelText: "Your name",
-//                                  helperText: "Please enter your name.",
-//                                  errorText: snapshot.error,
-//                                ),
-//                                keyboardType: TextInputType.text,
-//                              ),
-//                        ),
-//                        SizedBox(
-//                          height: 16.0,
-//                        ),
-                        StreamBuilder<String>(
-                          stream: authBloc.email,
-                          builder: (context, snapshot) => TextField(
-                                controller: _emailController,
-                                onChanged: (value) =>
-                                    authBloc.emailChanged.add(value),
-                                decoration: InputDecoration(
-                                  labelText: "Email",
-                                  helperText: "Please enter your email id.",
-                                  errorText: snapshot.error,
-                                ),
-                                keyboardType: TextInputType.emailAddress,
-                              ),
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        StreamBuilder(
-                            stream: authBloc.password,
-                            builder: (context, snapshot) => TextField(
-                                  controller: _passwordController,
-                                  obscureText: _obscureText,
-                                  onChanged: (value) =>
-                                      authBloc.passwordChanged.add(value),
-                                  decoration: InputDecoration(
-                                    labelText: "Password",
-                                    helperText: "Minimum 8 characters.",
-                                    errorText: snapshot.error,
-                                    suffixIcon: new IconButton(
-                                        icon: Icon(_obscureText
-                                            ? Icons.visibility
-                                            : Icons.visibility_off),
-                                        onPressed: () {
-                                          setState(() =>
-                                              _obscureText = !_obscureText);
-                                        }),
+                  return Center(
+                    child: SingleChildScrollView(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            StreamBuilder<String>(
+                              stream: authBloc.email,
+                              builder: (context, snapshot) => TextField(
+                                    controller: _emailController,
+                                    onChanged: (value) =>
+                                        authBloc.emailChanged.add(value),
+                                    decoration: InputDecoration(
+                                      labelText: "Email",
+                                      helperText: "Please enter your email id.",
+                                      errorText: snapshot.error,
+                                    ),
+                                    keyboardType: TextInputType.emailAddress,
                                   ),
-                                )),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        StreamBuilder<bool>(
-                            stream: authBloc.submitCheckLogin,
-                            builder: (context, snapshot) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(vertical: 48.0),
-                                child: RaisedButton(
-                                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                                  color: snapshot.hasData
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).disabledColor,
-                                  onPressed: snapshot.hasData
-                                      ? () {
-                                          FirebaseAuth.instance
-                                              .signInWithEmailAndPassword(
-                                                  email: _emailController.text,
-                                                  password:
-                                                      _passwordController.text)
-                                              .then((signedInUser) {
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                                    '/homepage');
-                                          }).catchError((e) {
-                                            print(e);
-                                            if (e
-                                                .toString()
-                                                .contains("no user")) {
-                                              FirebaseAuth.instance
-                                                  .createUserWithEmailAndPassword(
-                                                      email:
-                                                          _emailController.text,
+                            ),
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            StreamBuilder(
+                                stream: authBloc.password,
+                                builder: (context, snapshot) => TextField(
+                                      controller: _passwordController,
+                                      obscureText: _obscureText,
+                                      onChanged: (value) =>
+                                          authBloc.passwordChanged.add(value),
+                                      decoration: InputDecoration(
+                                        labelText: "Password",
+                                        helperText: "Minimum 8 characters.",
+                                        errorText: snapshot.error,
+                                        suffixIcon: new IconButton(
+                                            icon: Icon(_obscureText
+                                                ? Icons.visibility
+                                                : Icons.visibility_off),
+                                            onPressed: () {
+                                              setState(() =>
+                                                  _obscureText = !_obscureText);
+                                            }),
+                                      ),
+                                    )),
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            StreamBuilder<bool>(
+                                stream: authBloc.submitCheckLogin,
+                                builder: (context, snapshot) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 48.0),
+                                    child: RaisedButton(
+                                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                                      color: snapshot.hasData
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context).disabledColor,
+                                      onPressed: snapshot.hasData
+                                          ? () {
+                                        authBloc.loadingSink.add(true);
+                                        FirebaseAuth.instance
+                                                  .signInWithEmailAndPassword(
+                                                      email: _emailController.text,
                                                       password:
-                                                          _passwordController
-                                                              .text)
-                                                  .then((firebaseUser) {
-                                                print("signup user");
-                                                print(firebaseUser.uid);
-                                                //Navigate to NextPage
-                                                ObjectFactory()
-                                                    .prefs
-                                                    .setIsLoggedIn(true);
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Home()),
-                                                    (Route<dynamic> route) =>
-                                                        false);
-                                                FirebaseAuth.instance
-                                                    .currentUser()
-                                                    .then((firebaseUser2) {
-                                                  print("signin user");
-                                                  print(firebaseUser2.uid);
-                                                });
+                                                          _passwordController.text)
+                                                  .then((signedInUser) {
+                                                Navigator.of(context)
+                                                    .pushReplacementNamed(
+                                                        '/homepage');
+                                              }).catchError((e) {
+                                                print(e);
+                                                if (e
+                                                    .toString()
+                                                    .contains("no user")) {
+                                                  FirebaseAuth.instance
+                                                      .createUserWithEmailAndPassword(
+                                                          email:
+                                                              _emailController.text,
+                                                          password:
+                                                              _passwordController
+                                                                  .text)
+                                                      .then((firebaseUser) {
+                                                        authBloc.loadingSink.add(false);
+                                                    print("signup user");
+                                                    print(firebaseUser.uid);
+                                                    //Navigate to NextPage
+                                                    ObjectFactory()
+                                                        .prefs
+                                                        .setIsLoggedIn(true);
+                                                    Navigator.pushAndRemoveUntil(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Home()),
+                                                        (Route<dynamic> route) =>
+                                                            false);
+                                                    FirebaseAuth.instance
+                                                        .currentUser()
+                                                        .then((firebaseUser2) {
+                                                      print("signin user");
+                                                      print(firebaseUser2.uid);
+                                                    });
+                                                  });
+                                                } else if (e.toString().contains(
+                                                    "password is invalid")) {
+                                                  print(
+                                                      "Password is invalid, Check password");
+                                                }
                                               });
-                                            } else if (e.toString().contains(
-                                                "password is invalid")) {
-                                              print(
-                                                  "Password is invalid, Check password");
                                             }
-                                          });
-                                        }
-                                      : null,
-                                  child: Text(
-                                    "Continue",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .button
-                                        .copyWith(
-                                          color: snapshot.hasData
-                                              ? Colors.white
-                                              : Colors.black26,
-                                        ),
-                                  ),
-                                ),
-                              );
-                            }),
-                      ],
+                                          : null,
+                                      child: Text(
+                                        "Continue",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .button
+                                            .copyWith(
+                                              color: snapshot.hasData
+                                                  ? Colors.white
+                                                  : Colors.black26,
+                                            ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
                     ),
                   );
                 }
               })),
-      bottomNavigationBar: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new InkWell(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 4.0),
-              child: RichText(
-                  text: TextSpan(
-                      text: "Terms and conditions",
-//                      style: Theme.of(context).textTheme.body1,
-                      style: Theme.of(context).textTheme.body2.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor),
-                      children: <TextSpan>[
-                    TextSpan(
-                      text: "",
-                      style: Theme.of(context).textTheme.subhead.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor),
-                    )
-                  ])),
-            ),
-            onTap: () {},
-          ),
-        ],
-      ),
     );
   }
 
