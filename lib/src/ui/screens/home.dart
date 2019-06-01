@@ -1,5 +1,5 @@
 import 'package:flutter_consciousness/src/ui/screens/dashboard/dashboard.dart';
-import 'package:flutter_consciousness/src/ui/screens/my_journey/my_journey_home.dart';
+import 'package:flutter_consciousness/src/ui/screens/my_journey/my_collection_home.dart';
 import 'package:flutter_consciousness/src/ui/screens/profile.dart';
 import 'package:flutter_consciousness/src/ui/screens/shared_journey/shared_journey_home.dart';
 import 'package:flutter_consciousness/src/ui/widgets/util_widgets.dart';
@@ -19,9 +19,9 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 1;
   int _currentIndex;
   final List<Widget> _children = [
-    MyCollections(),
-    ConsciousnessHome(),
-    SharedWithMeHome(),
+    MyCollection(),
+    Dashboard(),
+    SharedWithMe(),
   ];
 
   @override
@@ -46,25 +46,37 @@ class _HomeState extends State<Home> {
                   size: 30,
                   color: Theme.of(context).primaryColor,
                 ),
-                title: Text('Saved', style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                title: Text('Saved',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subhead
+                        .copyWith(color: Theme.of(context).primaryColor)),
                 activeColor: Theme.of(context).accentColor,
               ),
               BottomNavyBarItem(
-                  icon: Icon(
-                    CommunityMaterialIcons.home_outline,
-                    size: 30,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  title: Text('Home',style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                icon: Icon(
+                  CommunityMaterialIcons.home_outline,
+                  size: 30,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text('Home',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subhead
+                        .copyWith(color: Theme.of(context).primaryColor)),
                 activeColor: Theme.of(context).accentColor,
               ),
               BottomNavyBarItem(
-                  icon: Icon(
-                    CommunityMaterialIcons.folder_account_outline,
-                    size: 30,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  title: Text('Shared',style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                icon: Icon(
+                  CommunityMaterialIcons.folder_account_outline,
+                  size: 30,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text('Shared',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subhead
+                        .copyWith(color: Theme.of(context).primaryColor)),
                 activeColor: Theme.of(context).accentColor,
               ),
             ],

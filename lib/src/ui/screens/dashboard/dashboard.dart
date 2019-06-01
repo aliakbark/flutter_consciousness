@@ -1,17 +1,16 @@
-import 'package:flutter_consciousness/src/ui/screens/auth/login.dart';
 import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 
-class MyCollections extends StatefulWidget {
+class Dashboard extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _MyCollectionsState();
+    return _DashboardSate();
   }
 }
 
-class _MyCollectionsState extends State<MyCollections> {
+class _DashboardSate extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +22,13 @@ class _MyCollectionsState extends State<MyCollections> {
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  ImageIcon(
-                    AssetImage(
-                      "assets/icons/home_outline.png",
-                    ),
-                    size: 24.0,
-                    color: Theme.of(context).primaryColor,
-                  ),
+//                  ImageIcon(
+//                    AssetImage(
+//                      "assets/icons/home_outline.png",
+//                    ),
+//                    size: 24.0,
+//                    color: Theme.of(context).primaryColor,
+//                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
@@ -48,26 +47,7 @@ class _MyCollectionsState extends State<MyCollections> {
               elevation: 0.0,
               pinned: false,
               forceElevated: true,
-              actions: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "Surat",
-                      style: Theme.of(context).textTheme.body1,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.location_on,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
-                      },
-                    ),
-                  ],
-                ),
-              ],
+              actions: <Widget>[],
             ),
           ];
         },
@@ -87,4 +67,3 @@ class _MyCollectionsState extends State<MyCollections> {
     ));
   }
 }
-
