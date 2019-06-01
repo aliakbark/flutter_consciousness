@@ -5,6 +5,7 @@ import 'package:flutter_consciousness/src/ui/screens/home.dart';
 import 'package:flutter_consciousness/src/utils/object_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consciousness/src/blocs/auth_bloc.dart';
+import 'package:flutter_consciousness/src/utils/prefs.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -60,8 +61,8 @@ class _LoginState extends State<Login> {
                     child: SingleChildScrollView(
                       child: new Container(
                         height: MediaQuery.of(context).size.height,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 24.0, vertical: 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -112,28 +113,37 @@ class _LoginState extends State<Login> {
                                 stream: authBloc.submitCheckLogin,
                                 builder: (context, snapshot) {
                                   return Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 48.0),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 48.0),
                                     child: RaisedButton(
-                                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16.0),
                                       color: snapshot.hasData
                                           ? Theme.of(context).primaryColor
                                           : Theme.of(context).disabledColor,
                                       onPressed: snapshot.hasData
                                           ? () {
 //                                        authBloc.loadingSink.add(true);
-                                        FirebaseAuth.instance
+                                              FirebaseAuth.instance
                                                   .signInWithEmailAndPassword(
-                                                      email: _emailController.text,
+                                                      email:
+                                                          _emailController.text,
                                                       password:
-                                                          _passwordController.text)
+                                                          _passwordController
+                                                              .text)
                                                   .then((signedInUser) {
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Home()),
-                                                  (Route<dynamic> route) =>
-                                              false);
+                                                ObjectFactory()
+                                                    .prefs
+                                                    .setUsername(
+                                                        username:
+                                                            signedInUser.email);
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Home()),
+                                                    (Route<dynamic> route) =>
+                                                        false);
                                               }).catchError((e) {
                                                 print(e);
 //                                                authBloc.loadingSink.add(false);
@@ -143,7 +153,8 @@ class _LoginState extends State<Login> {
                                                   FirebaseAuth.instance
                                                       .createUserWithEmailAndPassword(
                                                           email:
-                                                              _emailController.text,
+                                                              _emailController
+                                                                  .text,
                                                           password:
                                                               _passwordController
                                                                   .text)
@@ -151,23 +162,26 @@ class _LoginState extends State<Login> {
 //                                                        authBloc.loadingSink.add(false);
                                                     print("signup user");
                                                     print(firebaseUser.uid);
+                                                    ObjectFactory()
+                                                        .prefs
+                                                        .setUsername(
+                                                            username:
+                                                                firebaseUser
+                                                                    .email);
                                                     //Navigate to NextPage
                                                     ObjectFactory()
                                                         .prefs
                                                         .setIsLoggedIn(true);
-                                                    Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Home()),
-                                                        (Route<dynamic> route) =>
-                                                            false);
-                                                    FirebaseAuth.instance
-                                                        .currentUser()
-                                                        .then((firebaseUser2) {
-                                                      print("signin user");
-                                                      print(firebaseUser2.uid);
-                                                    });
+                                                    Navigator
+                                                        .pushAndRemoveUntil(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Home()),
+                                                            (Route<dynamic>
+                                                                    route) =>
+                                                                false);
                                                   });
                                                 } else if (e.toString().contains(
                                                     "password is invalid")) {

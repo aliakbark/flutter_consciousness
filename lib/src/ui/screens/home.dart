@@ -1,3 +1,5 @@
+import 'package:flutter_consciousness/src/models/collection.dart';
+import 'package:flutter_consciousness/src/resources/repository/repository.dart';
 import 'package:flutter_consciousness/src/ui/screens/dashboard/dashboard.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/my_collection_home.dart';
 import 'package:flutter_consciousness/src/ui/screens/profile.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter_consciousness/src/utils/object_factory.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -23,6 +26,20 @@ class _HomeState extends State<Home> {
     Dashboard(),
     SharedWithMe(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Repository repository = new Repository();
+    String user = ObjectFactory().prefs.getUsername();
+    repository.dataProvider.addCollection(new Collection(
+        collectionName: 'new Collection',
+        description: 'description',
+        collaborators: new List<String>(),
+        createdBy: user,
+        createdOn: DateTime.now()));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

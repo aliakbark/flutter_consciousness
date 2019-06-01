@@ -19,14 +19,6 @@ class DataProvider {
 //    }
 //  }
 
-  getMyCollectionList() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    return await Firestore.instance
-        .collection('collections')
-        .where('created_by', isEqualTo: user.email)
-        .snapshots();
-  }
-
   addCollection(Collection collection) async {
     return Firestore.instance
         .collection('collections')
@@ -41,7 +33,23 @@ class DataProvider {
         .add(data.toJson());
   }
 
+  getMyCollectionList() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    return await Firestore.instance
+        .collection('collections')
+        .where('created_by', isEqualTo: user.email)
+        .snapshots();
+  }
+
   getSharedCollectionList() async {
     return await Firestore.instance.collection('collections').snapshots();
+  }
+
+  getBookmarkList(String document_id) async {
+    return await Firestore.instance
+        .collection('collections')
+        .document(document_id)
+        .collection('data')
+        .snapshots();
   }
 }
