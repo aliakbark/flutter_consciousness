@@ -68,17 +68,17 @@ class _MyCollectionsState extends State<MyCollections> {
             ),
           ];
         },
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                Constants.sample_text3,
-                style: Theme.of(context).textTheme.title,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        body: new ListView.builder
+          (
+            itemCount: 3,
+            itemBuilder: (BuildContext ctxt, int index) {
+              return Card(
+                child: Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              );
+            }
         ),
       ),
     ));
