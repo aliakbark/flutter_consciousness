@@ -17,7 +17,7 @@ class App extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFf4f6f0),
           primaryColor: Color(0xFF485550),
 //          primarySwatch: Colors.green,
-          accentColor: Color(0xFFc0eb6a),
+          accentColor: Colors.greenAccent,
           buttonColor: Color(0xFF485550),
           dialogTheme: DialogTheme(),
           buttonTheme: ButtonThemeData(
