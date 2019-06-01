@@ -34,7 +34,7 @@ class App extends StatelessWidget {
           ),
           disabledColor: Colors.white70,
           iconTheme: IconThemeData(color: Colors.black45),
-          fontFamily: "Raleway",
+          fontFamily: "Noto Sans HK",
           textTheme: TextTheme(
             display3: TextStyle(
               fontSize: 56.0,

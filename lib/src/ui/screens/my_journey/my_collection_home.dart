@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consciousness/src/resources/repository/repository.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/bookmarks.dart';
 import 'package:flutter_consciousness/src/ui/screens/my_journey/collection_card_item.dart';
 
@@ -10,6 +11,15 @@ class MyCollection extends StatefulWidget {
 }
 
 class _MyCollectionState extends State<MyCollection> {
+  Repository repository;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    repository = new Repository();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +55,7 @@ class _MyCollectionState extends State<MyCollection> {
           },
           body: Container(
               child: ListView.builder(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(22.0),
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
@@ -83,61 +93,50 @@ class _MyCollectionState extends State<MyCollection> {
                 textAlign: TextAlign.center,
               ),
               children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-              decoration: BoxDecoration(
-                  border:Border.all(color: Theme
-                      .of(context)
-                  .indicatorColor
-                  .withOpacity(.25),width: 2),
-              borderRadius:BorderRadius.all(Radius.circular(12))),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: "Collection Title",
-                labelStyle: Theme
-                    .of(context)
-                    .textTheme
-                    .subhead),
-                keyboardType: TextInputType.text,
-                ),
-              ),
-              ),
-            ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * .15,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .indicatorColor
+                                .withOpacity(.25),
+                            width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            labelText: "Collection Title",
+                            labelStyle: Theme.of(context).textTheme.subhead),
+                        keyboardType: TextInputType.text,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: MediaQuery.of(context).size.height * .15,
                       decoration: BoxDecoration(
-                          border:Border.all(color: Theme
-                              .of(context)
-                              .indicatorColor
-                              .withOpacity(.25),width: 2),
-                          borderRadius:BorderRadius.all(Radius.circular(12))),
-
+                          border: Border.all(
+                              color: Theme.of(context)
+                                  .indicatorColor
+                                  .withOpacity(.25),
+                              width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               labelText: "Collection Details",
-                              labelStyle: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .subhead),
+                              labelStyle: Theme.of(context).textTheme.subhead),
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                         ),
-                      )
-
-                  ),
+                      )),
                 ),
                 ButtonBar(
                     mainAxisSize: MainAxisSize.min,
@@ -149,7 +148,9 @@ class _MyCollectionState extends State<MyCollection> {
                           style: TextStyle(color: Colors.white),
                         ),
                         color: Theme.of(context).primaryColor,
-                        onPressed: () {},
+                        onPressed: () {
+//                          repository.dataProvider.addCollection(collection);
+                        },
                       ),
                     ]),
               ],
