@@ -103,7 +103,7 @@ class _DashboardSate extends State<Dashboard> {
     return Container(
       height: 192.0,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
       child: CarouselSlider(
         autoPlay: true,
         pauseAutoPlayOnTouch: Duration(seconds: 3),
