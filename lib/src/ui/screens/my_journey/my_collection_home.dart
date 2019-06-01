@@ -43,11 +43,15 @@ class _MyCollectionState extends State<MyCollection> {
             ];
           },
           body: Container(
+
               child: ListView.builder(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(22.0),
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(child: CollectionCardItem());
+                    return GestureDetector(child: Padding(
+                      padding: const EdgeInsets.only(bottom:17.0),
+                      child: CollectionCardItem(),
+                    ));
                   })),
         ),
       ),
