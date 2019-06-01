@@ -6,6 +6,7 @@ import 'package:flutter_consciousness/src/ui/widgets/util_widgets.dart';
 import 'package:flutter_consciousness/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,37 +26,49 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: _children[_selectedIndex],
-      ),
-        bottomNavigationBar: BottomNavyBar(
-          selectedIndex: _selectedIndex,
-          showElevation: true, // use this to remove appBar's elevation
-          onItemSelected: (index) => setState(() {
-            _selectedIndex = index;
+    return SafeArea(
+      child: Scaffold(
+          body: SafeArea(
+            child: _children[_selectedIndex],
+          ),
+          bottomNavigationBar: BottomNavyBar(
+            selectedIndex: _selectedIndex,
+            showElevation: true, // use this to remove appBar's elevation
+            onItemSelected: (index) => setState(() {
+                  _selectedIndex = index;
 //            _pageController.animateToPage(index,
 //                duration: Duration(milliseconds: 300), curve: Curves.ease);
-          }),
-          items: [
-            BottomNavyBarItem(
-              icon: Icon(Icons.apps),
-              title: Text('Home'),
-              activeColor: Colors.red,
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.people),
-                title: Text('Users'),
-                activeColor: Colors.purpleAccent
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.message),
-                title: Text('Messages'),
-                activeColor: Colors.pink
-            ),
-
-          ],
-        )
+                }),
+            items: [
+              BottomNavyBarItem(
+                icon: Icon(
+                  CommunityMaterialIcons.bookmark_minus_outline,
+                  size: 30,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text('Saved', style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                activeColor: Theme.of(context).accentColor,
+              ),
+              BottomNavyBarItem(
+                  icon: Icon(
+                    CommunityMaterialIcons.home_outline,
+                    size: 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text('Home',style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                activeColor: Theme.of(context).accentColor,
+              ),
+              BottomNavyBarItem(
+                  icon: Icon(
+                    CommunityMaterialIcons.folder_account_outline,
+                    size: 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text('Shared',style: Theme.of(context).textTheme.subhead.copyWith(color: Theme.of(context).primaryColor)),
+                activeColor: Theme.of(context).accentColor,
+              ),
+            ],
+          )),
     );
   }
 
