@@ -23,6 +23,7 @@ class AuthBloc extends Object with Validators implements BaseBloc {
   StreamSink<String> get mobileChanged => _mobileController.sink;
 
   StreamSink<String> get nameChanged => _nameController.sink;
+  StreamSink<bool> get loadingSink => _loading.sink;
 
   Stream<String> get mobile =>
       _mobileController.stream.transform(mobileValidator);
